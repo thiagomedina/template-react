@@ -12,7 +12,7 @@ function App() {
   useEffect(() => {
     api.get('repositories')
       .then(res => setRepositories(res.data));
-  }, [])
+  }, [repositories])
 
   async function handleAddRepository() {
 
@@ -31,14 +31,14 @@ function App() {
 
 
     const response = await api.delete(`repositories/${id}`)
- 
+
 
     const array = repositories
-    const result = array.find((e , i)=> id == repositories[i].id  )
-    
-         console.log(result)
+    const index = array.findIndex(e => e.id === id);
 
-    
+    const res = array.splice(index, 1);
+
+    setRepositories(array)
   }
 
   return (
